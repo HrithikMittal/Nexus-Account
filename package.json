@@ -1,0 +1,22 @@
+{
+  "name": "accounts-app",
+  "version": "1.0.0",
+  "description": "An accounting API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/app.js"
+  },
+  "author": "Deepak Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "connect-mongo": "^2.0.3",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "express-validator": "^5.3.1",
+    "helmet": "^3.16.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.5.5",
+    "validator": "^10.11.0"
+  }
+}
