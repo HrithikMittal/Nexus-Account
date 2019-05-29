@@ -10,6 +10,7 @@ const trialRoute = require("./routes/trialRoute")
 const finalRoute = require("./routes/finalAccRoute")
 const userRoute = require("./routes/userRoute")
 const budgetRoute = require("./routes/budgetRoute")
+const flexBudgetRoute = require("./routes/flexBudgetRoute")
 const inventoryRoute = require("./routes/inventoryRoute")
 
 const app = express()
@@ -42,6 +43,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/budget", budgetRoute)
+app.use("/flexBudget", flexBudgetRoute)
 app.use("/inventory", inventoryRoute)
 app.use("/journal", journalRoute)
 app.use("/ledger", ledgerRoute)
