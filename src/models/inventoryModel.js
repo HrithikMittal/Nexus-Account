@@ -20,6 +20,13 @@ var InventorySchema = new Schema({
   	type: Number,
   	default: 0
   },
+  expiry: {
+    type: Date
+  },
+  thresholdQuantity: {
+    type: Number,
+    default: 0
+  },
   user: {
   	type: mongoose.Schema.Types.ObjectId,
   	required: true,

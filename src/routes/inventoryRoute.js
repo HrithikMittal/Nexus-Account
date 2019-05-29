@@ -1,4 +1,5 @@
 const express = require("express")
+const moment = require("moment")
 const { check, validationResult } = require("express-validator/check");
 
 const Inventory = require("../models/inventoryModel")
@@ -10,6 +11,8 @@ router.route("/add").post(isUserLoggedIn, [
         check("name").not().isEmpty().withMessage("Please provide inventory 'name' !").trim().escape(),
         check("category").not().isEmpty().withMessage("Please provide 'category' !").trim().escape(),
         check("quantity").not().isEmpty().withMessage("Please provide 'quantity' !").custom((value) => Number(value)).withMessage("'quantity' must be a number!").trim().escape(),
+        check("thresholdQuantity").not().isEmpty().withMessage("Please provide 'quantity' !").custom((value) => Number(value)).withMessage("'thresholdQuantity' must be a number!").trim().escape(),
+        check("expiry").not().isEmpty().withMessage("Provide 'expiry' field!").custom((value) => moment(value, "MM/DD/YYYY", true).isValid()).withMessage("'expiry' must be in 'MM/DD/YYYY' format!").trim() ,
         check("cost").not().isEmpty().withMessage("Please provide 'cost' !").custom((value) => Number(value)).withMessage("'cost' must be a number!").trim().escape()
     ], async function (req, res) {
     try {
@@ -25,6 +28,8 @@ router.route("/add").post(isUserLoggedIn, [
         let name = req.body.name.toLowerCase()
         let category = req.body.category.toLowerCase()
         let quantity = Number(req.body.quantity)
+        let thresholdQuantity = Number(req.body.thresholdQuantity)
+        let expiry = new Date(req.body.expiry)
         let cost = Number(req.body.cost)
         let user = req.session.user._id
 
@@ -38,6 +43,8 @@ router.route("/add").post(isUserLoggedIn, [
             name,
             category,
             quantity,
+            thresholdQuantity,
+            expiry,
             cost,
             user
         })
