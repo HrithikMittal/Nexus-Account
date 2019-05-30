@@ -12,7 +12,7 @@ router.route("/add").post(isUserLoggedIn, [
         check("category").not().isEmpty().withMessage("Please provide 'category' !").trim().escape(),
         check("quantity").not().isEmpty().withMessage("Please provide 'quantity' !").custom((value) => Number(value)).withMessage("'quantity' must be a number!").trim().escape(),
         check("thresholdQuantity").not().isEmpty().withMessage("Please provide 'quantity' !").custom((value) => Number(value)).withMessage("'thresholdQuantity' must be a number!").trim().escape(),
-        check("expiry").not().isEmpty().withMessage("Provide 'expiry' field!").custom((value) => moment(value, "MM/DD/YYYY", true).isValid()).withMessage("'expiry' must be in 'MM/DD/YYYY' format!").trim() ,
+        check("expiry").not().isEmpty().withMessage("Provide 'expiry' field!").trim(),
         check("cost").not().isEmpty().withMessage("Please provide 'cost' !").custom((value) => Number(value)).withMessage("'cost' must be a number!").trim().escape()
     ], async function (req, res) {
     try {
@@ -25,11 +25,16 @@ router.route("/add").post(isUserLoggedIn, [
             })
         }
 
+        let expiry = new Date(req.body.expiry)
+
+        if(isNaN(expiry)) {
+            return res.status(400).send({ message: "Bad request!", error: "Invalid expiry date, use format like '05 September 2019'"})
+        }
+
         let name = req.body.name.toLowerCase()
         let category = req.body.category.toLowerCase()
         let quantity = Number(req.body.quantity)
         let thresholdQuantity = Number(req.body.thresholdQuantity)
-        let expiry = new Date(req.body.expiry)
         let cost = Number(req.body.cost)
         let user = req.session.user._id
 
@@ -52,6 +57,8 @@ router.route("/add").post(isUserLoggedIn, [
         await item.save()
 
         item = item.toObject()
+
+        item.expiry = item.expiry.toDateString()
 
         delete item._id
         delete item.user
@@ -115,6 +122,11 @@ router.route("/update").post(isUserLoggedIn, [
 router.route("/").get(isUserLoggedIn, async function (req, res) {
     try{
         const inventory = await Inventory.find({ user: req.session.user._id }).select("-user -__v -_id")
+
+        for (const item of inventory) {
+            item.expiry = item.expiry.toDateString()
+        }
+        
         res.status(200).send({ inventory })
     } catch(e) {
         res.status(500).send({ message: "Something went wrong!", error: e })
