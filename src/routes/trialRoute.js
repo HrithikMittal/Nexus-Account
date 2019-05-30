@@ -8,7 +8,7 @@ const router = new express.Router()
 
 router.get("/", isUserLoggedIn, async (req, res) => {
 	try{
-		let ledger = await Ledger.find({}).select("account balance -_id")
+		let ledger = await Ledger.find({ user: req.session.user._id }).select("account balance -_id")
 		let creditBalance = 0
 		let debitBalance = 0
 
@@ -25,7 +25,8 @@ router.get("/", isUserLoggedIn, async (req, res) => {
  		const newTrial = new Trial({
  			creditBalance,
  			debitBalance,
- 			ledger
+ 			ledger,
+ 			user: req.session.user._id
  		})
 
  		await newTrial.save()

@@ -8,7 +8,7 @@ const router = new express.Router()
 router.get("/", isUserLoggedIn, async (req, res) => {
 	try{
 
-		let ledger = await Ledger.find({}).select("account debits credits")
+		let ledger = await Ledger.find({ user: req.session.user._id }).select("account debits credits")
 		let creditBalance = 0
 		let debitBalance = 0
 		let balance = {}
@@ -55,16 +55,17 @@ router.get("/", isUserLoggedIn, async (req, res) => {
 
 router.get("/update", isUserLoggedIn, async (req, res) => {
 	try{
-		const journal = await Journal.find({})
+		const journal = await Journal.find({ user: req.session.user._id })
 
 		let ledgerFrom, ledgerTo
 
 		for (const entry of journal) {
-			ledgerFrom = await Ledger.findOne({ account: entry.from._id })
+			ledgerFrom = await Ledger.findOne({ account: entry.from._id, user: req.session.user._id })
 
 			if(!ledgerFrom) {
 				let newLedgerAcc = new Ledger({
-					account: entry.from._id
+					account: entry.from._id,
+					user: req.session.user._id
 				})
 				await newLedgerAcc.save()
 				ledgerFrom = newLedgerAcc
@@ -78,11 +79,12 @@ router.get("/update", isUserLoggedIn, async (req, res) => {
 
 			await ledgerFrom.save()
 
-			let ledgerTo = await Ledger.findOne({ account: entry.to._id })
+			let ledgerTo = await Ledger.findOne({ account: entry.to._id, user: req.session.user._id })
 
 			if(!ledgerTo) {
 				let newLedgerAcc = new Ledger({
-					account: entry.to._id
+					account: entry.to._id,
+					user: req.session.user._id
 				})
 				await newLedgerAcc.save()
 				ledgerTo = newLedgerAcc
@@ -97,7 +99,7 @@ router.get("/update", isUserLoggedIn, async (req, res) => {
 			await ledgerTo.save()
 		}
 
-		let ledger = await Ledger.find({}).select("account debits credits")
+		let ledger = await Ledger.find({ user: req.session.user._id }).select("account debits credits")
 		let creditBalance = 0
 		let debitBalance = 0
 		let balance = {}

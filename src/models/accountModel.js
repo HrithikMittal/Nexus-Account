@@ -7,6 +7,10 @@ const accountSchema = new mongoose.Schema({
 		unique: true,
 		required: true,
 		trim: true
+	},
+	user: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User"
 	}
 }, {
 	timestamps: true

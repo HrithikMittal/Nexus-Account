@@ -13,7 +13,7 @@ const router = new express.Router()
 
 router.get("/", isUserLoggedIn, async (req, res) => {
 	try{
-		let journal = await Journal.find({}).sort({ date: -1})
+		let journal = await Journal.find({ user: req.session.user._id }).sort({ date: -1})
  		
  		let journalData = []
 
@@ -68,11 +68,12 @@ router.post("/add", isUserLoggedIn, [
 		let credit = req.body.credit
 		let narration = req.body.narration
 
-		const fromAccount = await Account.findOne({ name: from })
+		const fromAccount = await Account.findOne({ name: from, user: req.session.user._id })
 
 		if(!fromAccount) {
 			let newAccount = new Account({
-				name: from
+				name: from,
+				user: req.session.user._id
 			})
 			await newAccount.save()
 			from = newAccount
@@ -80,11 +81,12 @@ router.post("/add", isUserLoggedIn, [
 			from = fromAccount
 		}
 
-		const toAccount = await Account.findOne({ name: to })
+		const toAccount = await Account.findOne({ name: to, user: req.session.user._id })
 
 		if(!toAccount) {
 			let newAccount = new Account({
-				name: to
+				name: to,
+				user: req.session.user._id
 			})
 			await newAccount.save()
 			to = newAccount
@@ -98,7 +100,8 @@ router.post("/add", isUserLoggedIn, [
 			date,
 			debit,
 			credit,
-			narration: [narration + ` (Amount = ${debit} on date = ${date.toDateString()})`]
+			narration: [narration + ` (Amount = ${debit} on date = ${date.toDateString()})`],
+			user: req.session.user._id
 		})
 
 		await newEntry.save()
@@ -150,7 +153,7 @@ router.post("/update", isUserLoggedIn, [
 		let narration = req.body.narration
 
 
-		const fromAccount = await Account.findOne({ name: from })
+		const fromAccount = await Account.findOne({ name: from, user: req.session.user._id })
 
 		if(!fromAccount) {
 			return res.status(404).send({
@@ -158,7 +161,7 @@ router.post("/update", isUserLoggedIn, [
 			})
 		}
 
-		const toAccount = await Account.findOne({ name: to })
+		const toAccount = await Account.findOne({ name: to, user: req.session.user._id })
 
 		if(!toAccount) {
 			return res.status(404).send({
@@ -166,7 +169,7 @@ router.post("/update", isUserLoggedIn, [
 			})
 		}
 
-		const entry = await Journal.findOne({ from: fromAccount._id , to: toAccount._id , date: entryDate.toDateString() })
+		const entry = await Journal.findOne({ from: fromAccount._id , to: toAccount._id , date: entryDate.toDateString(), user: req.session.user._id })
 
 		if(!entry) {
 			return res.status(404).send({
