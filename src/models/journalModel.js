@@ -30,6 +30,10 @@ const JournalSchema = new mongoose.Schema({
 	user: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "User"
+	},
+	addedToLedger: {
+		type: Boolean,
+		default: false
 	}
 }, {
 	timestamps: true

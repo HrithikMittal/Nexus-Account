@@ -55,7 +55,7 @@ router.get("/", isUserLoggedIn, async (req, res) => {
 
 router.get("/update", isUserLoggedIn, async (req, res) => {
 	try{
-		const journal = await Journal.find({ user: req.session.user._id })
+		const journal = await Journal.find({ user: req.session.user._id, addedToLedger: false })
 
 		let ledgerFrom, ledgerTo
 
@@ -97,6 +97,9 @@ router.get("/update", isUserLoggedIn, async (req, res) => {
 			})
 
 			await ledgerTo.save()
+
+			entry.addedToLedger = true
+			await entry.save()
 		}
 
 		let ledger = await Ledger.find({ user: req.session.user._id }).select("account debits credits")
