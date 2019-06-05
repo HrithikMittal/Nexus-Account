@@ -360,7 +360,7 @@ Url for all these routes is ```http://localhost:3000``` and parameters for POST 
 	</tr>
 </table>
 
-## Repos for Seperate Access to the API's
+### Repos for Seperate Access to the API's
 <ul>
 	<li><a href="https://github.com/HrithikMittal/Nexus-Budget">Budget API</a></li>
 	<li><a href="https://github.com/HrithikMittal/Nexus-Inventory-Debit">Inventory-Debit</a></li>
