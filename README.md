@@ -370,6 +370,7 @@ Url for all these routes is ```http://localhost:3000``` and parameters for POST 
 	<li><a href="https://github.com/HrithikMittal/Nexus-Transaction">Transaction</a></li>
 	<li><a href="https://github.com/HrithikMittal/Nexus-Journal">Journal</a></li>
 	<li><a href="https://github.com/HrithikMittal/Nexus-BalanceSheet">Balance Sheet</a></li>
+	<li><a href="https://github.com/HrithikMittal/Nexus-TrailBalance">Trail Balance</a></li>
 	<li><a href="https://github.com/HrithikMittal/Nexus-Profit-Loss-Account">Profit and Loss Account</a></li>
 	<li><a href="https://github.com/HrithikMittal/Nexus-Login-Signup">Login Signup</a></li>
 	
