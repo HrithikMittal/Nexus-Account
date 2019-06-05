@@ -374,6 +374,51 @@ Url for all these routes is ```http://localhost:3000``` and parameters for POST 
 	
 </ul>
 
+### Authentication 
+I used express-session to manage sessions to authenticate. We have isUserLoggedIn,  isUserLoggedOut middleware function which checks if the user is authenticated or not. The session token is stored in the database using connect-mongo package and is deleted when the user logout<br>
+```
+async function isUserLoggedIn (req, res, next) {
+  try {
+    if (!(req.session && req.session.user)) {
+      return res.status(401).send({
+        error: "Unauthorized Access!"
+      });
+    }else {
+      const user = await User.findOne({ _id : req.session.user._id })
+      if(user) {
+        next();
+      } else {
+        req.session.user = null;
+        return res.status(401).send({
+          error: "Unauthorized Access!"
+        });
+      }
+    }
+  } catch(e) {
+    res.status(400).send({
+      error: e
+    })
+  }
+}
+
+
+// Function to check whether the user is logged out
+function isUserLoggedOut (req, res, next) {
+  if (req.session && req.session.user) {
+    return res.status(200).send({
+      message: "User already Logged In!"
+    });
+  }
+  next();
+}
+
+module.exports = {
+  isUserLoggedIn,
+  isUserLoggedOut
+}
+```
+<i>Note: some of the APIs which are mentionted above are not authenticate so please remember to add it. So it will help to proctect the private routes.</i>
+
 ## Deployment
 
 This api can be hosted on platform like heroku, aws, and others. MongoDB Atlas or Matlab can be used for remote database.<br /> For instance, the application can be deployed on [Heroku](https://signup.heroku.com/login) by creating and registering an account. Following, create a new app and choose a deployment method (terminal or github) and follow the instruction there. Remote database can be created using Mongodb Atlas or Matlab.<br /> For [Mongodb Atlas](https://cloud.mongodb.com/user?_ga=2.185306281.1809166196.1559570784-2125252051.1557828824#/atlas/register/accountProfile), you need to just to create your account and make a new cluster and link the cluster to your application through a URL. Following the given steps, you would have a remote application up and running.
