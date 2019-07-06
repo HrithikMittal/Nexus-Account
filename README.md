@@ -1,4 +1,5 @@
 # Nexus Accounts [![HitCount](http://hits.dwyl.io/HrithikMittal/HrithikMittal/nexus-account.svg)](http://hits.dwyl.io/HrithikMittal/HrithikMittal/nexus-account)
+https://img.shields.io/github/license/HrithikMittal/Nexus-Account.svg
 
 Nexus Account is an API which can be used to perform different accounting tasks such as creating Journal, Ledger, Trial Balance, Profit & Loss Account and Balance Sheet. It is also useful to create Flexible Budget or an Inventory.
 
