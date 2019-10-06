@@ -1,38 +1,52 @@
 # Nexus Accounts [![HitCount](http://hits.dwyl.io/HrithikMittal/HrithikMittal/nexus-account.svg)](http://hits.dwyl.io/HrithikMittal/HrithikMittal/nexus-account)
+
 [![license](https://img.shields.io/github/license/HrithikMittal/Nexus-Account.svg)](https://img.shields.io/github/license/HrithikMittal/Nexus-Account.svg)
 
-Nexus Account is an API which can be used to perform different accounting tasks such as creating Journal, Ledger, Trial Balance, Profit & Loss Account and Balance Sheet. It is also useful to create Flexible Budget or an Inventory.
+Nexus Account is an API which can be used to perform different accounting tasks
+such as creating Journal, Ledger, Trial Balance, Profit & Loss Account and
+Balance Sheet. It is also useful to create Flexible Budget or an Inventory.
 
 ### Prerequisites
 
 To work with the api you must have to install the following:
-* [NodeJS](https://nodejs.org/en/download/) - Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
-* [MongoDB Server](https://docs.mongodb.com/manual/installation/) - NoSql Database and server
-* [Postman](https://www.getpostman.com/downloads/) - API development environment
+
+- [NodeJS](https://nodejs.org/en/download/) - Node.js® is a JavaScript runtime
+  built on Chrome's V8 JavaScript engine.
+- [MongoDB Server](https://docs.mongodb.com/manual/installation/) - NoSql
+  Database and server
+- [Postman](https://www.getpostman.com/downloads/) - API development environment
 
 ## Installation
 
-Before doing anything you have to clone or download(and unzip) the project folder, open terminal and navigate to the project folder and run:
+Before doing anything you have to clone or download(and unzip) the project
+folder, open terminal and navigate to the project folder and run:
 
 ```bash
 npm install
 ```
+
 This will install all the dependencies required by the project.
 
 ## Getting Started
 
-To start using this API, start your local database server, open terminal and navigate to the project folder and run:
+To start using this API, start your local database server, open terminal and
+navigate to the project folder and run:
+
 ```bash
 npm run start
 ```
-If an error occur, check your database server or check if you have installed the prerequisites correctly.
+
+If an error occur, check your database server or check if you have installed the
+prerequisites correctly.
 
 If there was no error, open Postman and create and send a new get request to:
 
 ```
 http://localhost:3000/
 ```
-Expected Output: 
+
+Expected Output:
+
 ```
 {
 	message: "Welcome!"
@@ -46,7 +60,10 @@ Send a post request to:
 ```
 http://localhost:3000/user/register
 ```
-Along with 'id' and 'password' field in the 'x-www-form-urlencoded' option for the body of the request in postman:
+
+Along with 'id' and 'password' field in the 'x-www-form-urlencoded' option for
+the body of the request in postman:
+
 <table>
 	<tr>
 		<td>id</td>
@@ -58,7 +75,8 @@ Along with 'id' and 'password' field in the 'x-www-form-urlencoded' option for t
 	</tr>
 </table>
 
-Expected Output: 
+Expected Output:
+
 ```
 {
     "success": "User registered and Logged In!"
@@ -66,9 +84,11 @@ Expected Output:
 ```
 
 Once you get this message, you are ready to work with the api.
+
 ## Routes
 
-Url for all these routes is ```http://localhost:3000``` and parameters for POST request are sent through 'x-www-form-urlencoded' method.
+Url for all these routes is `http://localhost:3000` and parameters for POST
+request are sent through 'x-www-form-urlencoded' method.
 
 ### User Routes
 
@@ -362,6 +382,7 @@ Url for all these routes is ```http://localhost:3000``` and parameters for POST 
 </table>
 
 ### Repos for Seperate Access to the API's
+
 <ul>
 	<li><a href="https://github.com/HrithikMittal/Nexus-Budget">Budget API</a></li>
 	<li><a href="https://github.com/HrithikMittal/Nexus-Inventory-Debit">Inventory-Debit</a></li>
@@ -377,8 +398,13 @@ Url for all these routes is ```http://localhost:3000``` and parameters for POST 
 	
 </ul>
 
-### Authentication 
-I used express-session to manage sessions to authenticate. We have isUserLoggedIn,  isUserLoggedOut middleware function which checks if the user is authenticated or not. The session token is stored in the database using connect-mongo package and is deleted when the user logout<br>
+### Authentication
+
+I used express-session to manage sessions to authenticate. We have
+isUserLoggedIn, isUserLoggedOut middleware function which checks if the user is
+authenticated or not. The session token is stored in the database using
+connect-mongo package and is deleted when the user logout<br>
+
 ```
 async function isUserLoggedIn (req, res, next) {
   try {
@@ -420,12 +446,24 @@ module.exports = {
   isUserLoggedOut
 }
 ```
-<i>Note: some of the APIs which are mentionted above are not authenticate so please remember to add it. So it will help to proctect the private routes.</i>
+
+<i>Note: some of the APIs which are mentionted above are not authenticate so
+please remember to add it. So it will help to proctect the private routes.</i>
 
 ## Deployment
 
-This api can be hosted on platform like heroku, aws, and others. MongoDB Atlas or Matlab can be used for remote database.<br /> For instance, the application can be deployed on [Heroku](https://signup.heroku.com/login) by creating and registering an account. Following, create a new app and choose a deployment method (terminal or github) and follow the instruction there. Remote database can be created using Mongodb Atlas or Matlab.<br /> For [Mongodb Atlas](https://cloud.mongodb.com/user?_ga=2.185306281.1809166196.1559570784-2125252051.1557828824#/atlas/register/accountProfile), you need to just to create your account and make a new cluster and link the cluster to your application through a URL. Following the given steps, you would have a remote application up and running.
+This api can be hosted on platform like heroku, aws, and others. MongoDB Atlas
+or Matlab can be used for remote database.<br /> For instance, the application
+can be deployed on [Heroku](https://signup.heroku.com/login) by creating and
+registering an account. Following, create a new app and choose a deployment
+method (terminal or github) and follow the instruction there. Remote database
+can be created using Mongodb Atlas or Matlab.<br /> For
+[Mongodb Atlas](https://cloud.mongodb.com/user?_ga=2.185306281.1809166196.1559570784-2125252051.1557828824#/atlas/register/accountProfile),
+you need to just to create your account and make a new cluster and link the
+cluster to your application through a URL. Following the given steps, you would
+have a remote application up and running.
 
 ## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
-If you are the helping and contributing one, your efforts and suggestion are always welcome.
+If you are the helping and contributing one, your efforts and suggestion are
+always welcome.
