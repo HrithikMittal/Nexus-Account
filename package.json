@@ -9,7 +9,7 @@
   "author": "Deepak Sharma",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^4.0.0",
     "connect-mongo": "^3.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
