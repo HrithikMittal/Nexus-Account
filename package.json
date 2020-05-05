@@ -15,7 +15,7 @@
     "express-session": "^1.17.1",
     "express-validator": "^6.4.0",
     "helmet": "^3.22.0",
-    "moment": "^2.24.0",
+    "moment": "^2.25.3",
     "mongoose": "^5.9.10",
     "validator": "^13.0.0"
   }
