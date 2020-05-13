@@ -18,7 +18,7 @@
     "moment": "^2.25.3",
     "mongoose": "^5.9.10",
     "moment": "^2.24.0",
-    "mongoose": "^5.9.13",
+    "mongoose": "^5.9.14",
     "validator": "^13.0.0"
   }
 }
