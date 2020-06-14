@@ -17,6 +17,6 @@
     "helmet": "^3.22.0",
     "moment": "^2.26.0",
     "mongoose": "^5.9.18",
-    "validator": "^13.0.0"
+    "validator": "^13.1.1"
   }
 }
