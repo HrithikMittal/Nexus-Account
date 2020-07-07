@@ -16,7 +16,7 @@
     "express-validator": "^6.5.0",
     "helmet": "^3.23.0",
     "moment": "^2.26.0",
-    "mongoose": "^5.9.18",
+    "mongoose": "^5.9.22",
     "validator": "^13.1.1"
   }
 }
